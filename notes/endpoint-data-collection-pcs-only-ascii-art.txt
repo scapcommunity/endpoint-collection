@@ -1,0 +1,27 @@
+This diagram shows the 2 potential configurations of the Posture Collection Service, with any collection "engine"/mechanism abstracted by the PCS:
+1.  The PCS not residing on the endpoint and therefore remotely accessing/receiving posture attributes from the endpoint, and 
+2.  The PCS residing on the endpoint.
+
+
+                          (Orchestration)
++------------------------------------------------------------------+
+|                    Posture Collection Manager                    +------+
++--------------^----------------------------------^----------------+      |
+               |                                  |                       |
+               |                                  |                   Collected
+        Collected Data                     Collected Data                Data
+               ^                                  ^                       |
+               |                                  |                       |
++--------------+---------------+   +--------------+---------------+   +---v----+
+|  Posture Collection Service  |   |  Posture Collection Service  |   |  CMDB  |
++---^---------------------+----+   |                              |   +--------+
+    |                     |        |  +------------------------+  |
+    |                     v        |  |       Endpoint         |  |
+  Events               Queries     |  +------------------------+  |
+    ^                     |        +------------------------------+
+    |                     |           Posture Collection Service
++---+---------------------v----+         Residing on Endpoint
+|           Endpoint           |
++------------------------------+
+ Posture Collection Service NOT
+    Residing on Endpoint

@@ -1,0 +1,36 @@
+This diagram outlines the Posture Collection Manager orchestrating 3 different Posture Collection Services:
+1.  A PCS remotely connecting to a Posture Collection Engine, which remotely connects to an endpoint, 
+2.  A PCS remotely connecting to a Posture Collection Engine residing on an endpoint, and 
+3.  A PCS and Posture Collection Engine all residing on the endpoint.
+
+
+                                              (Orchestration)
++------------------------------------------------------------------------------------------------------------+
+|                                        Posture Collection Manager                                          +-----+
++------------------^---------------------------------^--------------------------------^----------------------+     |
+                   |                                 |                                |                            |
+                   +                                 +                                +                            | Collected
+             Collected Data                    Collected Data                   Collected Data                     |    Data
+                   ^                                 ^                                ^                            |
+                   |                                 |                                |                            |
+    +--------------+---------------+  +--------------+---------------+  +-------------+----------------+       +---v----+
+    |  Posture Collection Service  |  |  Posture Collection Service  |  |  Posture Collection Service  |       |  CMDB  |
+    +-----^-----------------+------+  +-----^-----------------^------+  |   +---------------------+    |       +--------+
+          |                 |               |                 |         |   |  Collection Engine  |    |
+          +                 v               +                 +         |   |    +----------+     |    |
+        Events           Queries          Events           Queries      |   |    | Endpoint |     |    |
+          ^                 +               ^                 +         |   |    +----------+     |    |
+          |                 |               |                 |         |   +---------------------+    |
+    +-----+-----------------v------+  +-----+-----------------v------+  +------------------------------+
+    |       Collection Engine      |  |       Collection Engine      |
+    +-----^-----------------+------+  |         +----------+         |  Endpoint-based Posture Collection Svc.
+          |                 |         |         | Endpoint |         |  Endpoint-based Posture Collection Engine
+          +                 v         |         +----------+         |
+        Events           Queries      +------------------------------+
+          ^                 +            Posture Collection Service
+          |                 |         Endpoint-based Collection Engine
+    +-----+-----------------v------+
+    |          Endpoint            |
+    +------------------------------+
+       Posture Collection Service
+        Remote Collection Engine
