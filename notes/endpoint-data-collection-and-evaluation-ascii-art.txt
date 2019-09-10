@@ -1,0 +1,43 @@
+This diagram shows both collection and evaluation mechanisms with communication only between "manager" components when the Posture Evaluation Manager requires further 
+data to be collected in order to perform evaluation.
+
+                                                                            +
+                                                                            |
+                                                                            |
+                                                       <----+ COLLECTION    |    EVALUATION +---->
+                                                                            |
+                                                                            |
+                                                                            |
+                                                                            |
+                                                                            +
+
+                                                            PEM requests collection of missing or
+                                                             +--------------------------------+
+                                                             |   outdated posture attributes  |
+                                                             |                                |
+  +----------------------------------------------------------v-------+                 +------v-----------------------------------------------------------+
+  |                    Posture Collection Manager                    +------+ +-------->                   Posture Evaluation Manager                     |
+  +--------------^----------------------------------^----------------+      | |        +------^-----------------+-------------^---------------+-----------+
+                 |                                  |                       | |               |                 |             |               |
+                 +                                  +                    Collected          Retrieve            |       Eval. Results  Perform Evaluation
+          Collected Data                     Collected Data                 Data           Evaluation           |             |               |
+                 ^                                  ^                       | |              Policy           Store     +-----+---------------v------+
+                 |                                  |                       | |               |                Eval.    |                            |
+  +--------------+---------------+   +--------------+---------------+   +---v-+--+   +--------v----------+    Results   | Posture Evaluation Service |
+  |  Posture Collection Service  |   |  Posture Collection Service  |   |  CMDB  |   | Policy Repository |      |       |                            |
+  +--------------^---------------+   |                              |   +--------+   +-------------------+      |       +----------------------------+
+                 |                   |  +------------------------+  |                                           |
+                 v                   |  |       Endpoint         |  |       +                          +--------v-----------+
+           Data Collection           |  +------------------------+  |       |                          | Evaluation Results |
+                 ^                   +------------------------------+       |                          |     Repository     |
+                 |                       PCS residing on Endpoint           |                          +--------------------+
+  +--------------v---------------+                                          |
+  |           Endpoint           |                                          |
+  +------------------------------+                                          |
+    PCS not residing on Endpoint                                            |
+                                                                            |
+                                                                            |
+                                                                            |
+                                                                            |
+                                                                            +
+
